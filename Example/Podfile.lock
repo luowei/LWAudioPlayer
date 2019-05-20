@@ -1,0 +1,24 @@
+PODS:
+  - libAudioPlayer (0.1.0):
+    - Masonry
+  - Masonry (1.1.0)
+
+DEPENDENCIES:
+  - libAudioPlayer (from `../`)
+  - Masonry (= 1.1.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Masonry
+
+EXTERNAL SOURCES:
+  libAudioPlayer:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  libAudioPlayer: a289bcb80eb9f4bd07d5564cc77fdd13e21a9196
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+
+PODFILE CHECKSUM: b712be978e6e40953e9c2669e5a1c86118518e7d
+
+COCOAPODS: 1.5.3

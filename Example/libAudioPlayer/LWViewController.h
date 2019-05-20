@@ -8,6 +8,8 @@
 
 @import UIKit;
 
+@class LWAudioPlayerView;
+
 @interface LWViewController : UIViewController
 
 @end

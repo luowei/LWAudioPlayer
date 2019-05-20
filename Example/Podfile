@@ -5,9 +5,9 @@ platform :ios, '8.0'
 target 'libAudioPlayer_Example' do
   pod 'libAudioPlayer', :path => '../'
 
+  pod 'Masonry','1.1.0'
+
   target 'libAudioPlayer_Tests' do
     inherit! :search_paths
-
-    
   end
 end

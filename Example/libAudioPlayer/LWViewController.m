@@ -7,23 +7,30 @@
 //
 
 #import "LWViewController.h"
+#import <libAudioPlayer/LWAudioPlayerView.h>
+#import <Masonry/Masonry.h>
 
 @interface LWViewController ()
 
+@property(nonatomic, strong) LWAudioPlayerView *audioPlayerView;
 @end
 
 @implementation LWViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view, typically from a nib.
+
+
+    self.audioPlayerView = [LWAudioPlayerView new];
+    [self.view addSubview:self.audioPlayerView];
+    [self.audioPlayerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(75);
+    }];
+
+    
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end
