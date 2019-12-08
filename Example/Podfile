@@ -7,7 +7,7 @@ target 'LWAudioPlayer_Example' do
 
   pod 'Masonry','1.1.0'
 
-  target 'LWAudioPlayer_Tests' do
-    inherit! :search_paths
-  end
+  # target 'LWAudioPlayer_Tests' do
+  #   inherit! :search_paths
+  # end
 end
