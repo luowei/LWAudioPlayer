@@ -30,7 +30,7 @@
 #define Screen_W ((CGFloat)([UIScreen mainScreen].bounds.size.width))
 #define Screen_H ((CGFloat)([UIScreen mainScreen].bounds.size.height))
 
-#define LWDrawboardBundle(obj)  ([NSBundle bundleWithPath:[[NSBundle bundleForClass:[obj class]] pathForResource:@"libAudioPlayer" ofType:@"bundle"]] ?: ([NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"libAudioPlayer " ofType:@"bundle"]] ?: [NSBundle mainBundle]))
+#define LWDrawboardBundle(obj)  ([NSBundle bundleWithPath:[[NSBundle bundleForClass:[obj class]] pathForResource:@"LWAudioPlayer" ofType:@"bundle"]] ?: ([NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LWAudioPlayer " ofType:@"bundle"]] ?: [NSBundle mainBundle]))
 #define UIImageWithName(name,obj) ([UIImage imageNamed:name inBundle:LWDrawboardBundle(obj) compatibleWithTraitCollection:nil])
 
 

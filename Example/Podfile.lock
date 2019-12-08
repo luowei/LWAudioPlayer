@@ -1,24 +1,24 @@
 PODS:
-  - libAudioPlayer (0.1.0):
+  - LWAudioPlayer (0.1.0):
     - Masonry
   - Masonry (1.1.0)
 
 DEPENDENCIES:
-  - libAudioPlayer (from `../`)
+  - LWAudioPlayer (from `../`)
   - Masonry (= 1.1.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Masonry
 
 EXTERNAL SOURCES:
-  libAudioPlayer:
+  LWAudioPlayer:
     :path: "../"
 
 SPEC CHECKSUMS:
-  libAudioPlayer: a289bcb80eb9f4bd07d5564cc77fdd13e21a9196
+  LWAudioPlayer: bfc5710f3c1e308713b356e1c63428c183283d2b
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
 
-PODFILE CHECKSUM: b712be978e6e40953e9c2669e5a1c86118518e7d
+PODFILE CHECKSUM: 2d009a4825d160a3599c774c2c1f072ffba12b7e
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

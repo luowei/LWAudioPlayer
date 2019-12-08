@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:libAudioPlayer.xcodeproj">
+      location = "self:LWAudioPlayer.xcodeproj">
    </FileRef>
 </Workspace>
