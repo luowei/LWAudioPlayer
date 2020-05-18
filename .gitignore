@@ -39,3 +39,8 @@ Pods/
 build/
 product/
 LWAudioPlayer-*/
+
+# package产出物
+LWAudioPlayer-*/
+build/
+product/
