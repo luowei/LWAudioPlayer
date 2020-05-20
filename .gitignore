@@ -44,3 +44,8 @@ LWAudioPlayer-*/
 LWAudioPlayer-*/
 build/
 product/
+
+# package产出物
+LWAudioPlayer-*/
+build/
+product/
