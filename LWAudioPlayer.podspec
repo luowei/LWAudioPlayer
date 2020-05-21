@@ -38,9 +38,9 @@ TODO: Add long description of the pod here.
 
   s.public_header_files = 'LWAudioPlayer/Classes/**/*.h'
   
-  s.frameworks = [
-  	'SystemConfiguration','AVFoundation',
-  ]
+  # s.frameworks = [
+  # 	'Foundation','CoreGraphics','SystemConfiguration','CoreTelephony','CoreMIDI','AudioToolbox','AVFoundation','MediaPlayer'
+  # ]
   # s.libraries = 'bz2', 'z', 'iconv'
 
   # s.dependency 'AFNetworking', '~> 2.3'
