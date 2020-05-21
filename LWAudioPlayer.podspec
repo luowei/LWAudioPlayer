@@ -37,7 +37,12 @@ TODO: Add long description of the pod here.
   }
 
   s.public_header_files = 'LWAudioPlayer/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  
+  s.frameworks = [
+  	'SystemConfiguration','AVFoundation',
+  ]
+  # s.libraries = 'bz2', 'z', 'iconv'
+
   # s.dependency 'AFNetworking', '~> 2.3'
 
   s.dependency 'Masonry'
