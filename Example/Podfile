@@ -5,7 +5,7 @@ platform :ios, '8.0'
 target 'LWAudioPlayer_Example' do
   pod 'LWAudioPlayer', :path => '../'
 
-  pod 'Masonry','1.1.0'
+  pod 'Masonry'
 
   # target 'LWAudioPlayer_Tests' do
   #   inherit! :search_paths
