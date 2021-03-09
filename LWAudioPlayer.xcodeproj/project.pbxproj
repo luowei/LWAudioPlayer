@@ -8,21 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		EAACC48025F7E7FE0056B88D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAACC45C25F7E7FE0056B88D /* Images.xcassets */; };
-		EAACC48125F7E7FE0056B88D /* LWAudioPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC45E25F7E7FE0056B88D /* LWAudioPlayerView.h */; };
-		EAACC48225F7E7FE0056B88D /* LWAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC45F25F7E7FE0056B88D /* LWAudioPlayer.h */; };
+		EAACC48125F7E7FE0056B88D /* LWAudioPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC45E25F7E7FE0056B88D /* LWAudioPlayerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAACC48225F7E7FE0056B88D /* LWAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC45F25F7E7FE0056B88D /* LWAudioPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAACC48325F7E7FE0056B88D /* ListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EAACC46025F7E7FE0056B88D /* ListItem.m */; };
 		EAACC48425F7E7FE0056B88D /* LWAudioCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = EAACC46125F7E7FE0056B88D /* LWAudioCategories.m */; };
-		EAACC48625F7E7FE0056B88D /* Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46325F7E7FE0056B88D /* Defines.h */; };
+		EAACC48625F7E7FE0056B88D /* Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46325F7E7FE0056B88D /* Defines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAACC48725F7E7FE0056B88D /* LWAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = EAACC46425F7E7FE0056B88D /* LWAudioPlayer.m */; };
 		EAACC48825F7E7FE0056B88D /* LWAudioPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAACC46525F7E7FE0056B88D /* LWAudioPlayerView.m */; };
-		EAACC48925F7E7FE0056B88D /* LWAudioCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46625F7E7FE0056B88D /* LWAudioCategories.h */; };
-		EAACC48A25F7E7FE0056B88D /* ListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46725F7E7FE0056B88D /* ListItem.h */; };
+		EAACC48925F7E7FE0056B88D /* LWAudioCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46625F7E7FE0056B88D /* LWAudioCategories.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAACC48A25F7E7FE0056B88D /* ListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46725F7E7FE0056B88D /* ListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAACC48B25F7E7FE0056B88D /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAACC46925F7E7FE0056B88D /* MarqueeLabel.m */; };
-		EAACC48C25F7E7FE0056B88D /* MarqueeLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46A25F7E7FE0056B88D /* MarqueeLabel.h */; };
+		EAACC48C25F7E7FE0056B88D /* MarqueeLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46A25F7E7FE0056B88D /* MarqueeLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAACC48D25F7E7FE0056B88D /* STKQueueEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = EAACC46C25F7E7FE0056B88D /* STKQueueEntry.m */; };
 		EAACC48E25F7E7FE0056B88D /* STKAutoRecoveringHTTPDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46D25F7E7FE0056B88D /* STKAutoRecoveringHTTPDataSource.h */; };
 		EAACC48F25F7E7FE0056B88D /* STKDataSourceWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46E25F7E7FE0056B88D /* STKDataSourceWrapper.h */; };
-		EAACC49025F7E7FE0056B88D /* STKAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46F25F7E7FE0056B88D /* STKAudioPlayer.h */; };
+		EAACC49025F7E7FE0056B88D /* STKAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC46F25F7E7FE0056B88D /* STKAudioPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAACC49125F7E7FE0056B88D /* STKHTTPDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EAACC47025F7E7FE0056B88D /* STKHTTPDataSource.m */; };
 		EAACC49225F7E7FE0056B88D /* STKDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = EAACC47125F7E7FE0056B88D /* STKDataSource.h */; };
 		EAACC49325F7E7FE0056B88D /* STKLocalFileDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EAACC47225F7E7FE0056B88D /* STKLocalFileDataSource.m */; };
@@ -210,20 +210,20 @@
 			files = (
 				EAACC48925F7E7FE0056B88D /* LWAudioCategories.h in Headers */,
 				EAACC48125F7E7FE0056B88D /* LWAudioPlayerView.h in Headers */,
+				EAACC49025F7E7FE0056B88D /* STKAudioPlayer.h in Headers */,
+				EAACC48225F7E7FE0056B88D /* LWAudioPlayer.h in Headers */,
+				EAACC48A25F7E7FE0056B88D /* ListItem.h in Headers */,
+				EAACC48C25F7E7FE0056B88D /* MarqueeLabel.h in Headers */,
+				EAACC48625F7E7FE0056B88D /* Defines.h in Headers */,
 				EAACC49D25F7E7FE0056B88D /* STKCoreFoundationDataSource.h in Headers */,
 				EAACC49B25F7E7FE0056B88D /* STKLocalFileDataSource.h in Headers */,
 				EAACC49725F7E7FE0056B88D /* STKQueueEntry.h in Headers */,
 				EAACC48F25F7E7FE0056B88D /* STKDataSourceWrapper.h in Headers */,
-				EAACC49025F7E7FE0056B88D /* STKAudioPlayer.h in Headers */,
-				EAACC48225F7E7FE0056B88D /* LWAudioPlayer.h in Headers */,
 				EAACC49425F7E7FE0056B88D /* NSMutableArray+STKAudioPlayer.h in Headers */,
-				EAACC48A25F7E7FE0056B88D /* ListItem.h in Headers */,
 				EAACC48E25F7E7FE0056B88D /* STKAutoRecoveringHTTPDataSource.h in Headers */,
 				EAACC49825F7E7FE0056B88D /* STKHTTPDataSource.h in Headers */,
-				EAACC48C25F7E7FE0056B88D /* MarqueeLabel.h in Headers */,
 				EAACC49F25F7E7FE0056B88D /* StreamingKit-Prefix.pch in Headers */,
 				EAACC49225F7E7FE0056B88D /* STKDataSource.h in Headers */,
-				EAACC48625F7E7FE0056B88D /* Defines.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
