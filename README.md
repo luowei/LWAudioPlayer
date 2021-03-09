@@ -22,7 +22,7 @@ pod 'LWAudioPlayer'
 
 **Carthage**
 ```ruby
-github "luowei/LWAspectsHook"
+github "luowei/LWAudioPlayer"
 ```
 
 ## Usage
