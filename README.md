@@ -20,6 +20,22 @@ it, simply add the following line to your Podfile:
 pod 'LWAudioPlayer'
 ```
 
+**Carthage**
+```ruby
+github "luowei/LWAspectsHook"
+```
+
+## Usage
+
+```OC
+    self.audioPlayerView = [LWAudioPlayerView new];
+    [self.view addSubview:self.audioPlayerView];
+    [self.audioPlayerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(75);
+    }];
+```
+
 ## Author
 
 luowei, luowei@wodedata.com
