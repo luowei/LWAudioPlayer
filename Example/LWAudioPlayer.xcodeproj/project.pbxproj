@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5CBDF017D330C387C865B7FC /* Pods_LWAudioPlayer_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4478634BD2E8659D1460BF7F /* Pods_LWAudioPlayer_Tests.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -22,8 +21,8 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
-		825D25D3542CF6370C541709 /* Pods_LWAudioPlayer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C226C1D5135EED5BA78652C /* Pods_LWAudioPlayer_Example.framework */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		C2C70B31181EAEAA411217BB /* libPods-LWAudioPlayer_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7695E27328E01701804971C /* libPods-LWAudioPlayer_Example.a */; };
 		EAC0D5562292EB5000C3F93E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC0D5552292EB5000C3F93E /* AVFoundation.framework */; };
 		EAC0D5582292EB5B00C3F93E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC0D5572292EB5B00C3F93E /* AudioToolbox.framework */; };
 		EAC0D55A2292EB7100C3F93E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC0D5592292EB7100C3F93E /* CoreMedia.framework */; };
@@ -43,8 +42,6 @@
 
 /* Begin PBXFileReference section */
 		147703347C8C17B7EBDE1606 /* Pods-LWAudioPlayer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LWAudioPlayer_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-LWAudioPlayer_Example/Pods-LWAudioPlayer_Example.release.xcconfig"; sourceTree = "<group>"; };
-		2C226C1D5135EED5BA78652C /* Pods_LWAudioPlayer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LWAudioPlayer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4478634BD2E8659D1460BF7F /* Pods_LWAudioPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LWAudioPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E7118A28025D5F07BD3A79A /* Pods-LWAudioPlayer_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LWAudioPlayer_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LWAudioPlayer_Tests/Pods-LWAudioPlayer_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* LWAudioPlayer_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LWAudioPlayer_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -65,7 +62,6 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		6234AD9F4FC313A901D96B57 /* Pods-LWAudioPlayer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LWAudioPlayer_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LWAudioPlayer_Tests/Pods-LWAudioPlayer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76A52F994886CF05C4BC8A7D /* Pods-LWAudioPlayer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LWAudioPlayer_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LWAudioPlayer_Example/Pods-LWAudioPlayer_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		76F4D1C735A7FBC841D9AE1C /* Pods-LWAudioPlayer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LWAudioPlayer_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-LWAudioPlayer_Example/Pods-LWAudioPlayer_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -73,8 +69,8 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		957C35CF697BE6BB76597097 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		A68D552C18DD6E6C973ED2B5 /* LWAudioPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LWAudioPlayer.podspec; path = ../LWAudioPlayer.podspec; sourceTree = "<group>"; };
+		B7695E27328E01701804971C /* libPods-LWAudioPlayer_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LWAudioPlayer_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D744659E49DCDFC7FB350388 /* Pods-LWAudioPlayer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LWAudioPlayer_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LWAudioPlayer_Tests/Pods-LWAudioPlayer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		DD43EBED70F864FF96600561 /* Pods-LWAudioPlayer_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LWAudioPlayer_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LWAudioPlayer_Tests/Pods-LWAudioPlayer_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		EAC0D5552292EB5000C3F93E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EAC0D5572292EB5B00C3F93E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		EAC0D5592292EB7100C3F93E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -96,7 +92,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				825D25D3542CF6370C541709 /* Pods_LWAudioPlayer_Example.framework in Frameworks */,
+				C2C70B31181EAEAA411217BB /* libPods-LWAudioPlayer_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +103,6 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				5CBDF017D330C387C865B7FC /* Pods_LWAudioPlayer_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,8 +142,7 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				2C226C1D5135EED5BA78652C /* Pods_LWAudioPlayer_Example.framework */,
-				4478634BD2E8659D1460BF7F /* Pods_LWAudioPlayer_Tests.framework */,
+				B7695E27328E01701804971C /* libPods-LWAudioPlayer_Example.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -214,12 +208,8 @@
 			children = (
 				76A52F994886CF05C4BC8A7D /* Pods-LWAudioPlayer_Example.debug.xcconfig */,
 				147703347C8C17B7EBDE1606 /* Pods-LWAudioPlayer_Example.release.xcconfig */,
-				D744659E49DCDFC7FB350388 /* Pods-LWAudioPlayer_Tests.debug.xcconfig */,
-				4E7118A28025D5F07BD3A79A /* Pods-LWAudioPlayer_Tests.release.xcconfig */,
 				827480FB8FA468EEE3C1FE00 /* Pods-LWAudioPlayer_Example.debug.xcconfig */,
 				76F4D1C735A7FBC841D9AE1C /* Pods-LWAudioPlayer_Example.release.xcconfig */,
-				6234AD9F4FC313A901D96B57 /* Pods-LWAudioPlayer_Tests.debug.xcconfig */,
-				DD43EBED70F864FF96600561 /* Pods-LWAudioPlayer_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -235,7 +225,7 @@
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				A4A47C7871AABEE6B907CBD6 /* [CP] Embed Pods Frameworks */,
+				EBF9E38755EF3EE1958A68F8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,7 +240,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "LWAudioPlayer_Tests" */;
 			buildPhases = (
-				69B392C3A1791A60E4A2AFE4 /* [CP] Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
@@ -327,28 +316,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		69B392C3A1791A60E4A2AFE4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LWAudioPlayer_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7F517AF78E701E090441ED2D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -371,24 +338,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A4A47C7871AABEE6B907CBD6 /* [CP] Embed Pods Frameworks */ = {
+		EBF9E38755EF3EE1958A68F8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LWAudioPlayer_Example/Pods-LWAudioPlayer_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/LWAudioPlayer/LWAudioPlayer.framework",
-				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-LWAudioPlayer_Example/Pods-LWAudioPlayer_Example-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/LWAudioPlayer/LWAudioPlayer.bundle",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LWAudioPlayer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LWAudioPlayer.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LWAudioPlayer_Example/Pods-LWAudioPlayer_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LWAudioPlayer_Example/Pods-LWAudioPlayer_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -557,7 +522,6 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6234AD9F4FC313A901D96B57 /* Pods-LWAudioPlayer_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = G3A2KYKYBU;
@@ -582,7 +546,6 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD43EBED70F864FF96600561 /* Pods-LWAudioPlayer_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = G3A2KYKYBU;

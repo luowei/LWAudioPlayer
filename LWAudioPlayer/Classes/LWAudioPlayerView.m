@@ -9,7 +9,6 @@
 #import "MarqueeLabel.h"
 #import "STKDataSource.h"
 #import "LWAudioPlayer.h"
-#import "LWAudioCategories.h"
 #import "Defines.h"
 #import "STKAudioPlayer.h"
 #import "ListItem.h"
@@ -23,12 +22,16 @@
 @property(nonatomic, strong) MarqueeLabel *textLabel;
 @property(nonatomic, strong) UIButton *previousBtn;
 @property(nonatomic, strong) UIButton *nextBtn;
+@property(nonatomic, strong) UIButton *speedDownBtn;
+@property(nonatomic, strong) UIButton *speedUpBtn;
+
 @property(nonatomic, strong) UISlider *progressBar;
 @property(nonatomic, strong) UILabel *progressLabel;
 
 //进度条上的时间标签
 @property(nonatomic, strong) UILabel *startLabel;
 @property(nonatomic, strong) UILabel *endLabel;
+@property(nonatomic, strong) UILabel *speedLabel;
 
 @property(nonatomic, strong) UIImage *normalPauseImg;
 @property(nonatomic, strong) UIImage *highlightPauseImg;
@@ -42,20 +45,27 @@
 @implementation LWAudioPlayerView {
 }
 
+-(BOOL)isDarkStyle {
+    if(@available(iOS 13.0,*)){
+        return UIApplication.sharedApplication.delegate.window.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;;
+    }
+    return NO;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
         LWAudioPlayer *player = [LWAudioPlayer sharedInstance];
         player.playerViewDelegate = self;
 
-        self.normalPauseImg = UIImageWithName(@"pause",self);
-        self.highlightPauseImg = [self.normalPauseImg lwaudio_imageWithOverlayColor:[UIColor lightGrayColor]];
-        self.normalPlayImg = UIImageWithName(@"play",self);
-        self.highlightPlayImg = [self.normalPlayImg lwaudio_imageWithOverlayColor:[UIColor lightGrayColor]];
+        self.normalPauseImg = [self isDarkStyle] ? [UIImageWithName(@"pause",self) imageWithOverlayColor:UIColor.whiteColor] : UIImageWithName(@"pause",self);
+        self.highlightPauseImg = [self.normalPauseImg imageWithOverlayColor:[UIColor lightGrayColor]];
+        self.normalPlayImg = [self isDarkStyle] ? [UIImageWithName(@"play",self) imageWithOverlayColor:UIColor.whiteColor] : UIImageWithName(@"play",self);
+        self.highlightPlayImg = [self.normalPlayImg imageWithOverlayColor:[UIColor lightGrayColor]];
 
         self.topLine = [UIView new];
         [self addSubview:self.topLine];
-        self.topLine.backgroundColor = [UIColor lightGrayColor];
+        self.topLine.backgroundColor = [self isDarkStyle] ? UIColor.separatorColor : [UIColor lightGrayColor];
         [self.topLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.equalTo(self);
             make.height.mas_equalTo(.5);
@@ -84,8 +94,9 @@
         self.progressBar.minimumValue = 0;
         self.progressBar.maximumValue = 150;
         self.progressBar.value = 0;
-        self.progressBar.tintColor = [UIColor darkTextColor];
-        [self.progressBar setThumbImage:UIImageWithName(@"cursor",self) forState:UIControlStateNormal];
+        self.progressBar.tintColor = [self isDarkStyle] ? UIColor.labelColor : [UIColor darkTextColor];
+        UIImage *thumbImage = [self isDarkStyle] ? [UIImageWithName(@"cursor",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"cursor",self);
+        [self.progressBar setThumbImage:thumbImage forState:UIControlStateNormal];
         [self updateProgressLabelText:@"00:00"];
 
         [self.progressBar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -98,7 +109,7 @@
 
         //进度标签
         UIFont *labelFont = [UIFont systemFontOfSize:12];
-        if (@available(iOS 8.2,*)) {
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.2")) {
             labelFont = [UIFont systemFontOfSize:12 weight:UIFontWeightThin];
         }
 
@@ -124,7 +135,7 @@
         [self addSubview:self.endLabel];
         self.endLabel.font = labelFont;
         self.endLabel.text = @"30:00";
-        self.startLabel.textAlignment = NSTextAlignmentRight;
+        self.endLabel.textAlignment = NSTextAlignmentRight;
         [self.endLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self).offset(-7);
             make.centerY.equalTo(self).offset(-8);
@@ -134,7 +145,8 @@
         //播放暂停按钮
         self.playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:self.playBtn];
-        [self.playBtn setImage:UIImageWithName(@"play",self) forState:UIControlStateNormal];
+        UIImage *playImage = [self isDarkStyle] ? [UIImageWithName(@"play",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"play",self);
+        [self.playBtn setImage:playImage forState:UIControlStateNormal];
         [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.mas_centerY).offset(17.5);
             make.centerX.equalTo(self);
@@ -142,11 +154,30 @@
         }];
         [self.playBtn addTarget:self action:@selector(playOrPuaseAction) forControlEvents:UIControlEventTouchUpInside];
 
+        //速度标签
+        self.speedLabel = [UILabel new];
+        [self addSubview:self.speedLabel];
+        self.speedLabel.font = labelFont;
+        self.speedLabel.text = @"1x";
+        self.speedLabel.textAlignment = NSTextAlignmentCenter;
+        [self.speedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.playBtn.mas_bottom).offset(-2);
+            make.centerX.equalTo(self);
+        }];
+        //设置速度值
+        float speedRate= [NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate];
+        if(speedRate < 0.1 || speedRate > 3.0){
+            speedRate = 1.0;
+            [NSUserDefaults.standardUserDefaults setFloat:speedRate forKey:Key_AudioPlayer_SpeedRate];
+        }
+        self.speedLabel.text = [NSString stringWithFormat:@"%.1fx", speedRate];
+
 
         //上一首
         self.previousBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:self.previousBtn];
-        [self.previousBtn setImage:UIImageWithName(@"play_previous",self) forState:UIControlStateNormal];
+        UIImage *playPreImage = [self isDarkStyle] ? [UIImageWithName(@"play_previous",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"play_previous",self);
+        [self.previousBtn setImage:playPreImage forState:UIControlStateNormal];
         [self.previousBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.mas_centerY).offset(17.5);
             make.trailing.equalTo(self.playBtn.mas_leading).offset(-30);
@@ -158,7 +189,8 @@
         //下一首
         self.nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:self.nextBtn];
-        [self.nextBtn setImage:UIImageWithName(@"play_next",self) forState:UIControlStateNormal];
+        UIImage *playNextImage = [self isDarkStyle] ? [UIImageWithName(@"play_next",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"play_next",self);
+        [self.nextBtn setImage:playNextImage forState:UIControlStateNormal];
         [self.nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.mas_centerY).offset(17.5);
             make.leading.equalTo(self.playBtn.mas_trailing).offset(30);
@@ -166,13 +198,40 @@
         }];
         [self.nextBtn addTarget:self action:@selector(playNextAction) forControlEvents:UIControlEventTouchUpInside];
 
+        //减速
+        self.speedDownBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self addSubview:self.speedDownBtn];
+        UIImage *speedDownImage = [self isDarkStyle] ? [UIImageWithName(@"speed_down",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"speed_down",self);
+        [self.speedDownBtn setImage:speedDownImage forState:UIControlStateNormal];
+        [self.speedDownBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.mas_centerY).offset(17.5);
+            make.trailing.equalTo(self.previousBtn.mas_leading).offset(-25);
+            make.width.height.mas_equalTo(30);
+        }];
+        [self.speedDownBtn addTarget:self action:@selector(speedDownAction) forControlEvents:UIControlEventTouchUpInside];
+
+        //加速
+        self.speedUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self addSubview:self.speedUpBtn];
+        UIImage *speedUpImage = [self isDarkStyle] ? [UIImageWithName(@"speed_up",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"speed_up",self);
+        [self.speedUpBtn setImage:speedUpImage forState:UIControlStateNormal];
+        [self.speedUpBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.mas_centerY).offset(17.5);
+            make.leading.equalTo(self.nextBtn.mas_trailing).offset(25);
+            make.width.height.mas_equalTo(25);
+        }];
+        [self.speedUpBtn addTarget:self action:@selector(speedUpAction) forControlEvents:UIControlEventTouchUpInside];
+
+
         //播放模式
         self.playModeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:self.playModeBtn];
         if(player.isSingleLoop){
-            [self.playModeBtn setImage:UIImageWithName(@"loop_single",self) forState:UIControlStateNormal];
+            UIImage *loopSingleImage = [self isDarkStyle] ? [UIImageWithName(@"loop_single",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"loop_single",self);
+            [self.playModeBtn setImage:loopSingleImage forState:UIControlStateNormal];
         }else{
-            [self.playModeBtn setImage:UIImageWithName(@"loop_all",self) forState:UIControlStateNormal];
+            UIImage *loopAllImage = [self isDarkStyle] ? [UIImageWithName(@"loop_all",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"loop_all",self);
+            [self.playModeBtn setImage:loopAllImage forState:UIControlStateNormal];
         }
 
         [self.playModeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -185,7 +244,8 @@
         //分享
         self.shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:self.shareBtn];
-        [self.shareBtn setImage:UIImageWithName(@"share_audio",self) forState:UIControlStateNormal];
+        UIImage *shareAudioImage = [self isDarkStyle] ? [UIImageWithName(@"share_audio",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"share_audio",self);
+        [self.shareBtn setImage:shareAudioImage forState:UIControlStateNormal];
         [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.mas_centerY).offset(17.5);
             make.right.equalTo(self).offset(-10);
@@ -198,11 +258,10 @@
 }
 
 - (void)rotationToInterfaceOrientation:(UIInterfaceOrientation)orientation {
-    [super lwaudio_rotationToInterfaceOrientation:orientation];
+    [super rotationToInterfaceOrientation:orientation];
 
     [self updateTextLabelSpaceWithText:self.textLabel.text];
 }
-
 
 - (void)dealloc {
     LWAudioLog(@"=======dealloc LWAudioPlayerView");
@@ -231,7 +290,7 @@
 //    }
 
     //更新播放按钮状态,处理非运行状态或是暂停状态
-    //NSLog(@"========player stare:%d",player.state);
+    //Log(@"========player stare:%d",player.state);
     if ((player.audioPlayer.state == STKAudioPlayerStateBuffering) || (player.audioPlayer.state == STKAudioPlayerStatePlaying)
             || (player.av_isRuning && player.av_isPlaying) ) {
         [self.playBtn setImage:self.normalPauseImg forState:UIControlStateNormal];
@@ -263,7 +322,7 @@
         duration = player.avplayer.duration;
     }
     if (self.progressBar.maximumValue != duration) {
-        //NSLog(@"========duration:%f",duration);
+        //Log(@"========duration:%f",duration);
         self.progressBar.maximumValue = (float) duration;
         self.endLabel.text = [self doubleToNSStringTime:self.progressBar.maximumValue];
     }
@@ -296,15 +355,17 @@
     BOOL isSingleLoop = [[NSUserDefaults standardUserDefaults] boolForKey:Key_isSingleLoop];
     if(isSingleLoop){   //如果单曲循环模式,则设置为有顺序循环
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:Key_isSingleLoop];
-        [self.playModeBtn setImage:UIImageWithName(@"loop_all",self) forState:UIControlStateNormal];
+        UIImage *loopAllImage = [self isDarkStyle] ? [UIImageWithName(@"loop_all",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"loop_all",self);
+        [self.playModeBtn setImage:loopAllImage forState:UIControlStateNormal];
     }else{
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:Key_isSingleLoop];
-        [self.playModeBtn setImage:UIImageWithName(@"loop_single",self) forState:UIControlStateNormal];
+        UIImage *loopSingleImage = [self isDarkStyle] ? [UIImageWithName(@"loop_single",self) imageWithOverlayColor:UIColor.labelColor] : UIImageWithName(@"loop_single",self);
+        [self.playModeBtn setImage:loopSingleImage forState:UIControlStateNormal];
     }
 }
 
 -(void)shareAction{
-    UIViewController *vc = [self lwaudio_superViewWithClass:[UIViewController class] ];
+    UIViewController *vc = [self superViewWithClass:[UIViewController class] ];
 
     LWAudioPlayer *player = [LWAudioPlayer sharedInstance];
     NSURL *itemURL = nil;
@@ -332,6 +393,9 @@
         return;
     }
 
+    if(!player.itemList){
+        player.itemList = [self.dataSource flatItemList:nil withType:TypeAudio];
+    }
     [player playPuaseTrack];
 }
 
@@ -345,6 +409,9 @@
         [player av_stop];
     }
 
+    if(!player.itemList){
+        player.itemList = [self.dataSource flatItemList:nil withType:TypeAudio];
+    }
     [player previousTrack];
 }
 
@@ -357,11 +424,37 @@
         [player av_stop];
     }
 
+    if(!player.itemList){
+        player.itemList = [self.dataSource flatItemList:nil withType:TypeAudio];
+    }
     [player nextTrack];
 }
 
+//减速
+-(void)speedDownAction {
+    LWAudioPlayer *player = [LWAudioPlayer sharedInstance];
+    if(player.av_isRuning){
+        [player av_speedDown];
+        self.speedLabel.text = [NSString stringWithFormat:@"%.1fx",[NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate]];
+        return;
+    }
 
-#pragma mark - Getter and Setter
+    [player speedDown];
+    self.speedLabel.text = [NSString stringWithFormat:@"%.1fx",[NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate]];
+}
+
+//加速
+-(void)speedUpAction {
+    LWAudioPlayer *player = [LWAudioPlayer sharedInstance];
+    if(player.av_isRuning){
+        [player av_speedUp];
+        self.speedLabel.text = [NSString stringWithFormat:@"%.1fx",[NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate]];
+        return;
+    }
+
+    [player speedUp];
+    self.speedLabel.text = [NSString stringWithFormat:@"%.1fx",[NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate]];
+}
 
 
 
@@ -409,3 +502,61 @@
 
 
 @end
+
+
+@implementation UIImage (OverColor)
+
+// 给指定的图片染色
+- (UIImage *)imageWithOverlayColor:(UIColor *)color{
+
+//    if (UIGraphicsBeginImageContextWithOptions) {
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+//    }
+//    else {
+//        UIGraphicsBeginImageContext(self.size);
+//    }
+
+    [self drawInRect:CGRectMake(0.0f, 0.0f, self.size.width, self.size.height)];
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetBlendMode(context, kCGBlendModeSourceIn);
+
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextFillRect(context, CGRectMake(0.0f, 0.0f, self.size.width, self.size.height));
+
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return image;
+}
+
+@end
+
+
+@implementation UIResponder (Extension)
+
+//获得指class类型的父视图
+- (id)superViewWithClass:(Class)clazz {
+    UIResponder *responder = self;
+    while (![responder isKindOfClass:clazz]) {
+        responder = [responder nextResponder];
+        if (nil == responder) {
+            break;
+        }
+    }
+    return responder;
+}
+
+@end
+
+@implementation UIView (Rotation)
+
+//递归的向子视图发送屏幕发生旋转了的消息
+- (void)rotationToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    for (UIView *v in self.subviews) {
+        [v rotationToInterfaceOrientation:orientation];
+    }
+}
+
+@end
+

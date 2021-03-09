@@ -499,7 +499,7 @@
 //更新锁屏时的播放信息
 - (void)updateNowPlayingInfoWithElapsedPlaybackTime:(NSNumber *)elapsedTime playbackRate:(NSNumber *)rate {
     if(!self.artwork){
-        self.artwork = [[MPMediaItemArtwork alloc] initWithImage:[UIImage imageNamed:@"MyBrowser"]];
+        self.artwork = [[MPMediaItemArtwork alloc] initWithImage:UIImageWithName(@"Artwork_Image",self)];
     }
     if(!self.nowPlayingInfo){
         self.nowPlayingInfo = @{}.mutableCopy;

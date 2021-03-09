@@ -10,7 +10,7 @@
 #import <LWAudioPlayer/LWAudioPlayerView.h>
 #import <Masonry/Masonry.h>
 
-@interface LWViewController ()
+@interface LWViewController ()<LWAudioPlayerDataSource>
 
 @property(nonatomic, strong) LWAudioPlayerView *audioPlayerView;
 @end
@@ -23,6 +23,7 @@
 
 
     self.audioPlayerView = [LWAudioPlayerView new];
+    self.audioPlayerView.dataSource = self;
     [self.view addSubview:self.audioPlayerView];
     [self.audioPlayerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
@@ -32,5 +33,12 @@
     
 }
 
+#pragma mark - LWAudioPlayerDataSource
+
+//获得播放列表，扁平化的ItemList
+-(NSArray <ListItem *>*)flatItemList:(NSArray <ListItem *>*)itemList withType:(NSString *)type {
+    //todo: 列表数据
+    return nil;
+}
 
 @end

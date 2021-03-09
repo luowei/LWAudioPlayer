@@ -68,7 +68,12 @@
 - (void)av_refreshNoewPlayingInfo;
 //av是否在播放
 -(BOOL)av_isRuning;
-
 -(BOOL)av_isPlaying;
+
+- (void)av_speedDown;
+- (void)av_speedUp;
+
+- (void)speedDown;
+- (void)speedUp;
 
 @end
