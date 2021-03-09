@@ -29,11 +29,21 @@ github "luowei/LWAudioPlayer"
 
 ```OC
     self.audioPlayerView = [LWAudioPlayerView new];
+    self.audioPlayerView.dataSource = self;
     [self.view addSubview:self.audioPlayerView];
     [self.audioPlayerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(75);
     }];
+
+
+#pragma mark - LWAudioPlayerDataSource
+
+//获得播放列表，扁平化的ItemList
+-(NSArray <ListItem *>*)flatItemList:(NSArray <ListItem *>*)itemList withType:(NSString *)type {
+    //todo: 列表数据
+    return nil;
+}
 ```
 
 ## Author
