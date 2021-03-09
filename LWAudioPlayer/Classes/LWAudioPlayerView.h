@@ -9,6 +9,7 @@
 @class LWAudioPlayer;
 @class STKDataSource;
 
+#define Key_AudioPlayer_SpeedRate @"Key_AudioPlayer_SpeedRate"
 
 @interface LWAudioPlayerView : UIView
 

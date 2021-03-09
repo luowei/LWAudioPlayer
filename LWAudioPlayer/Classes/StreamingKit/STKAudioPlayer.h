@@ -272,6 +272,11 @@ typedef void(^STKFrameFilter)(UInt32 channelsPerFrame, UInt32 bytesPerFrame, UIn
 /// Sets the gain value (from -96 low to +24 high) for an equalizer band (0 based index)
 -(void) setGain:(float)gain forEqualizerBand:(int)bandIndex;
 
+//播放速度设置，参考：https://github.com/tumtumtum/StreamingKit/pull/262/commits/54e636b3e1ecf31924d5bfda1ed0f4e0f171f66d
+//SetPlaybackSpeed
+-(void) setplaybackbackspeed:(float)value;
+-(float) getplaybackbackspeed;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,7 +11,6 @@
 #import "LWAudioPlayerView.h"
 #import "ListItem.h"
 
-
 @interface LWAudioPlayer ()<STKAudioPlayerDelegate>
 
 @property(nonatomic, strong) MPMediaItemArtwork *artwork;
@@ -66,7 +65,7 @@
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self releaseAudioPlayer];
-    NSLog(@"========:releaseAudioPlayer");
+    LWAudioLog(@"========:releaseAudioPlayer");
 }
 
 /*
@@ -110,7 +109,7 @@
             [self previousTrack];
             break;
         case UIEventSubtypeRemoteControlTogglePlayPause:
-            NSLog(@"========UIEventSubtypeRemoteControlTogglePlayPause");
+            LWAudioLog(@"========UIEventSubtypeRemoteControlTogglePlayPause");
             break;
         case UIEventSubtypeRemoteControlBeginSeekingBackward:
         case UIEventSubtypeRemoteControlBeginSeekingForward:
@@ -141,6 +140,15 @@
 - (void)playAudioWithItem:(ListItem *)item{
     [self playerTimerInvalidate];
 
+    //初始化速率
+    float speedRate = [NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate];
+    if(speedRate < 0.1 || speedRate > 3.0){
+        speedRate = 1.0;
+        [NSUserDefaults.standardUserDefaults setFloat:speedRate forKey:Key_AudioPlayer_SpeedRate];
+    }
+    [self.audioPlayer setplaybackbackspeed:(AudioUnitParameterValue) speedRate];
+
+
     //如果是上次播放的
     if (self.currentItem && [self.currentItem.itemPath isEqualToString:item.itemPath]) {
         if (self.audioPlayer.state == STKAudioPlayerStatePlaying) {   //正在播放
@@ -152,6 +160,9 @@
             [self playDataSource:dataSource];
         }
     } else {
+        if(!item.itemPath){
+            return;
+        }
         STKDataSource *dataSource = [STKAudioPlayer dataSourceFromURL:[NSURL fileURLWithPath:item.itemPath]];
         [self playDataSource:dataSource];
     }
@@ -237,6 +248,31 @@
 
 - (void)stop {
     [self.audioPlayer stop];
+}
+
+
+- (void)speedDown {
+    float speedRate = [NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate];
+    if(speedRate > 0.1){
+        speedRate -= 0.1;
+    }else{
+        speedRate = 0.1;
+    }
+    //设置速率
+    [self.audioPlayer setplaybackbackspeed:(AudioUnitParameterValue) speedRate];
+    [NSUserDefaults.standardUserDefaults setFloat:speedRate forKey:Key_AudioPlayer_SpeedRate];
+}
+
+- (void)speedUp {
+    float speedRate = [NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate];
+    if(speedRate <= 3.0){
+        speedRate += 0.1;
+    }else{
+        speedRate = 3.0;
+    }
+    //设置速率
+    [self.audioPlayer setplaybackbackspeed:(AudioUnitParameterValue) speedRate];
+    [NSUserDefaults.standardUserDefaults setFloat:speedRate forKey:Key_AudioPlayer_SpeedRate];
 }
 
 //释放AudioPlayer
@@ -343,6 +379,9 @@
 
 
 -(void)playDataSource:(STKDataSource *)dataSource{
+    if(!dataSource){
+        return;
+    }
     [self.audioPlayer playDataSource:dataSource];
     //[self addPlayerNotificationObserver];
 }
@@ -452,6 +491,7 @@
         NSURL *fileURL = [NSURL fileURLWithPath:self.currentItem.itemPath];
         _avplayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:&error];
         _avplayer.delegate = self;
+        _avplayer.enableRate = YES;
         [self av_play];
     }
 }
@@ -471,7 +511,7 @@
     self.nowPlayingInfo[MPMediaItemPropertyArtwork] = self.artwork;
     self.nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(self.audioPlayer.duration);    //音乐剩余时长
 
-    if(@available(iOS 10.0,*)){
+    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")){
         self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackProgress] = @(self.audioPlayer.progress/ self.audioPlayer.duration);
         self.nowPlayingInfo[MPNowPlayingInfoPropertyMediaType] = @(MPNowPlayingInfoMediaTypeAudio);
     }
@@ -503,6 +543,13 @@
 }
 
 - (void)av_play {
+    float speedRate = [NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate];
+    if(speedRate < 0.1 || speedRate > 3.0){
+        speedRate = 1.0;
+        [NSUserDefaults.standardUserDefaults setFloat:speedRate forKey:Key_AudioPlayer_SpeedRate];
+    }
+    _avplayer.rate = speedRate;
+
     _isav_Runing = YES;
     _isav_Playing = YES;
     [_avplayer play];
@@ -520,6 +567,33 @@
     [_avplayer stop];
 }
 
+- (void)av_speedDown {
+    float speedRate = [NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate];
+    if(speedRate > 0.1){
+        speedRate -= 0.1;
+    }else{
+        speedRate = 0.1;
+    }
+    [_avplayer pause];
+    _avplayer.rate = speedRate;
+    [_avplayer play];
+    [NSUserDefaults.standardUserDefaults setFloat:_avplayer.rate forKey:Key_AudioPlayer_SpeedRate];
+}
+
+- (void)av_speedUp {
+    float speedRate = [NSUserDefaults.standardUserDefaults floatForKey:Key_AudioPlayer_SpeedRate];
+    if(speedRate <= 3.0){
+        speedRate += 0.1;
+    }else{
+        speedRate = 3.0;
+    }
+    [_avplayer pause];
+    _avplayer.rate = speedRate;
+    [_avplayer play];
+    [NSUserDefaults.standardUserDefaults setFloat:_avplayer.rate forKey:Key_AudioPlayer_SpeedRate];
+
+}
+
 - (void)av_refreshNoewPlayingInfo {
 
     if(!self.artwork){
@@ -535,7 +609,7 @@
     self.nowPlayingInfo[MPMediaItemPropertyArtwork] = self.artwork;
     self.nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(_avplayer.duration);    //音乐剩余时长
 
-    if(@available(iOS 10.0,*)){
+    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")){
         self.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackProgress] = @(_avplayer.currentTime/ _avplayer.duration);
         self.nowPlayingInfo[MPNowPlayingInfoPropertyMediaType] = @(MPNowPlayingInfoMediaTypeAudio);
     }
@@ -593,7 +667,5 @@
         [self av_play];
     }
 }
-
-
 
 @end

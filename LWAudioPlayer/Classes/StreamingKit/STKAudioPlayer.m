@@ -206,6 +206,9 @@ static AudioComponentDescription convertUnitDescription;
 static AudioStreamBasicDescription canonicalAudioStreamBasicDescription;
 static AudioStreamBasicDescription recordAudioStreamBasicDescription;
 
+//PlaybackrateUnit Description
+static AudioComponentDescription playbackrateUnitDescription;
+
 @interface STKAudioPlayer()
 {
 	BOOL muted;
@@ -238,6 +241,11 @@ static AudioStreamBasicDescription recordAudioStreamBasicDescription;
     AudioComponentInstance eqUnit;
 	AudioComponentInstance mixerUnit;
 	AudioComponentInstance outputUnit;
+
+    //PlaybackSpeedNode
+    AUNode playbackspeedNode;
+    //PlaybackSpeedUnit
+    AudioComponentInstance playbackspeedUnit;
 		
     UInt32 eqBandCount;
     int32_t waitingForDataAfterSeekFrameCount;
@@ -342,7 +350,18 @@ static void AudioFileStreamPacketsProc(void* clientData, UInt32 numberBytes, UIn
 #else
     const int bytesPerSample = sizeof(AudioSampleType);
 #endif
-    
+
+    //PlaybackSpeedUnit Description
+    playbackrateUnitDescription = (AudioComponentDescription)
+    {
+        .componentManufacturer    = kAudioUnitManufacturer_Apple,
+        .componentType            = kAudioUnitType_FormatConverter,
+        .componentSubType        = kAudioUnitSubType_AUiPodTimeOther,
+        .componentFlags            = 0,
+        .componentFlagsMask        = 0,
+
+    };
+
     canonicalAudioStreamBasicDescription = (AudioStreamBasicDescription)
     {
         .mSampleRate = 44100.00,
@@ -2139,6 +2158,24 @@ static BOOL GetHardwareCodecClassDesc(UInt32 formatId, AudioClassDescription* cl
     }
 }
 
+//Create PlaybackSpeedUnit
+-(void) createplaybackRateUnit
+{
+    OSStatus status;
+
+    CHECK_STATUS_AND_RETURN(AUGraphAddNode(audioGraph, &playbackrateUnitDescription, &playbackspeedNode));
+    CHECK_STATUS_AND_RETURN(AUGraphNodeInfo(audioGraph, playbackspeedNode, &playbackrateUnitDescription, &playbackspeedUnit));
+
+    //maxframes changed here
+    CHECK_STATUS_AND_RETURN(AudioUnitSetProperty(playbackspeedUnit, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &maxFramesPerSlice, sizeof(maxFramesPerSlice)));
+
+#if TARGET_OS_IPHONE
+    CHECK_STATUS_AND_RETURN(AudioUnitSetParameter(playbackspeedUnit, kNewTimePitchParam_Rate, kAudioUnitScope_Global, 0, 1, 0));
+#endif
+
+    CHECK_STATUS_AND_RETURN(AudioUnitSetProperty(playbackspeedUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, kOutputBus, &canonicalAudioStreamBasicDescription, sizeof(canonicalAudioStreamBasicDescription)));
+}
+
 -(void) createOutputUnit
 {
 	OSStatus status;
@@ -2317,6 +2354,8 @@ static BOOL GetHardwareCodecClassDesc(UInt32 formatId, AudioClassDescription* cl
 	
 	[self createEqUnit];
 	[self createMixerUnit];
+    //create playbackUnit
+    [self createplaybackRateUnit];
 	[self createOutputUnit];
     
     [self connectGraph];
@@ -2364,6 +2403,13 @@ static BOOL GetHardwareCodecClassDesc(UInt32 formatId, AudioClassDescription* cl
     {
         [nodes addObject:@(mixerNode)];
         [units addObject:[NSValue valueWithPointer:mixerUnit]];
+    }
+
+    //Connect PlaybackSpeedNode
+    if (playbackspeedNode)
+    {
+        [nodes addObject:@(playbackspeedNode)];
+        [units addObject:[NSValue valueWithPointer:playbackspeedUnit]];
     }
 	
     if (outputNode)
@@ -3469,5 +3515,17 @@ static OSStatus OutputRenderCallback(void* inRefCon, AudioUnitRenderActionFlags*
     self->equalizerEnabled = value;
 }
 
+//setPlaybackSpeed
+-(void) setplaybackbackspeed:(float)value
+{
+    AudioUnitSetParameter(playbackspeedUnit, kNewTimePitchParam_Rate, kAudioUnitScope_Global, 0, value, 0);
+}
+
+-(float) getplaybackbackspeed
+{
+    float value = 1.0;
+    AudioUnitGetParameter(playbackspeedUnit, kNewTimePitchParam_Rate, kAudioUnitScope_Global, 0, &value);
+    return value;
+}
 
 @end
