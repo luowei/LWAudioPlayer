@@ -9,6 +9,26 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+### Bundle Image  
+```Objective-C
+#define LWImageBundle(obj)  ([NSBundle bundleWithPath:[[NSBundle bundleForClass:[obj class]] pathForResource:@"LWAudioPlayer" ofType:@"bundle"]] ?: ([NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LWAudioPlayer " ofType:@"bundle"]] ?: [NSBundle mainBundle]))
+#define UIImageWithName(name,obj) ([UIImage imageNamed:name inBundle:LWImageBundle(obj) compatibleWithTraitCollection:nil])
+
+
+```
+
+### LWAudioPlayerView
+```
+self.audioPlayerView = [LWAudioPlayerView new];
+self.audioPlayerView.dataSource = self;
+[self.view addSubview:self.audioPlayerView];
+[self.audioPlayerView mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.left.right.bottom.equalTo(self.view);
+    make.height.mas_equalTo(75);
+}];
+
+```
+
 ## Requirements
 
 ## Installation
