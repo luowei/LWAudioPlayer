@@ -5,29 +5,40 @@
 [![License](https://img.shields.io/cocoapods/l/LWAudioPlayer.svg?style=flat)](https://cocoapods.org/pods/LWAudioPlayer)
 [![Platform](https://img.shields.io/cocoapods/p/LWAudioPlayer.svg?style=flat)](https://cocoapods.org/pods/LWAudioPlayer)
 
-[中文文档](README_ZH.md)
+[English](./README.md) | [中文版](./README_ZH.md)
 
-## Description
+---
+
+## Overview
 
 LWAudioPlayer is a dual-core audio player library for iOS that provides comprehensive audio playback capabilities. It supports advanced features including forward/backward seeking, loop playback, variable playback speed, and lock screen controls. Built on both AVAudioPlayer and StreamingKit, it offers flexible audio playback solutions for various scenarios.
 
 ## Features
 
-- **Dual Audio Engine**: Supports both AVAudioPlayer and StreamingKit (STKAudioPlayer)
-- **Playback Speed Control**: Adjust playback speed with speed up/down controls
-- **Loop Playback**: Support for single track loop playback
-- **Progress Control**: Forward, backward, and precise seeking capabilities
-- **Lock Screen Integration**: Update and control playback from iOS lock screen
-- **Playlist Management**: Support for playlist with next/previous track navigation
-- **UI Components**: Pre-built audio player view with customizable interface
-- **Delegate Pattern**: Flexible delegate callbacks for UI updates
-- **Background Playback**: Continue playing audio in background mode
+### Core Capabilities
+- **Dual Audio Engine**: Flexible audio playback powered by both AVAudioPlayer and StreamingKit (STKAudioPlayer)
+- **Variable Speed Control**: Adjust playback speed dynamically with speed up/down controls
+- **Loop Playback**: Single track loop playback support for repeated listening
+- **Advanced Progress Control**: Forward, backward seeking, and precise position control
+
+### Integration & UI
+- **Lock Screen Integration**: Seamlessly control playback from iOS lock screen with metadata display
+- **Playlist Management**: Complete playlist support with next/previous track navigation
+- **Pre-built UI Components**: Ready-to-use audio player view with customizable interface
+- **Delegate Pattern**: Comprehensive delegate callbacks for real-time UI updates
+
+### Additional Features
+- **Background Playback**: Uninterrupted audio playback in background mode
+- **Resource Bundle Support**: Built-in image resources for player controls
+- **Singleton Architecture**: Easy-to-use shared instance pattern
 
 ## Requirements
 
-- iOS 8.0+
-- Xcode 8.0+
-- Objective-C
+| Requirement | Version |
+|------------|---------|
+| iOS | 8.0+ |
+| Xcode | 8.0+ |
+| Language | Objective-C |
 
 ## Installation
 
@@ -59,16 +70,16 @@ carthage update --platform iOS
 
 ## Usage
 
-### Basic Setup
+### Quick Start
 
-Import the header:
+#### 1. Import Headers
 
 ```objective-c
 #import <LWAudioPlayer/LWAudioPlayer.h>
 #import <LWAudioPlayer/LWAudioPlayerView.h>
 ```
 
-### Using LWAudioPlayer
+#### 2. Basic Playback
 
 Get the shared instance and play audio:
 
@@ -76,16 +87,18 @@ Get the shared instance and play audio:
 LWAudioPlayer *player = [LWAudioPlayer sharedInstance];
 player.playerViewDelegate = self;
 
-// Play audio with item
+// Create and configure audio item
 ListItem *item = [[ListItem alloc] init];
 item.title = @"Audio Title";
 item.url = @"http://example.com/audio.mp3";
+
+// Start playback
 [player playAudioWithItem:item];
 ```
 
-### Using LWAudioPlayerView
+#### 3. Add Player View (Optional)
 
-Add the player view to your interface:
+Add the pre-built player view to your interface:
 
 ```objective-c
 self.audioPlayerView = [LWAudioPlayerView new];
@@ -97,7 +110,11 @@ self.audioPlayerView.dataSource = self;
 }];
 ```
 
-### Implement Data Source
+### Advanced Usage
+
+#### Implementing Data Source
+
+Provide playlist data to the player view:
 
 ```objective-c
 #pragma mark - LWAudioPlayerDataSource
@@ -108,7 +125,9 @@ self.audioPlayerView.dataSource = self;
 }
 ```
 
-### Implement Delegate
+#### Implementing Delegate
+
+Handle playback events and UI updates:
 
 ```objective-c
 #pragma mark - LWAudioPlayerViewDelegate
@@ -124,29 +143,31 @@ self.audioPlayerView.dataSource = self;
 }
 ```
 
-### Playback Controls
+#### Playback Controls
+
+Control audio playback with simple method calls:
 
 ```objective-c
 LWAudioPlayer *player = [LWAudioPlayer sharedInstance];
 
-// Play or pause
+// Play or pause current track
 [player playPuaseTrack];
 
-// Next track
+// Navigate playlist
 [player nextTrack];
-
-// Previous track
 [player previousTrack];
 
 // Stop playback
 [player stop];
 
-// Speed control
+// Adjust playback speed
 [player speedUp];
 [player speedDown];
 ```
 
-### Lock Screen Integration
+#### Lock Screen Integration
+
+Update lock screen controls with current playback information:
 
 ```objective-c
 // Update now playing info for lock screen
@@ -154,9 +175,9 @@ LWAudioPlayer *player = [LWAudioPlayer sharedInstance];
                                         playbackRate:@(rate)];
 ```
 
-### Accessing Bundle Resources
+#### Resource Bundle Access
 
-When accessing images from the resource bundle:
+Access images from the resource bundle:
 
 ```objective-c
 #define LWImageBundle(obj) ([NSBundle bundleWithPath:[[NSBundle bundleForClass:[obj class]] pathForResource:@"LWAudioPlayer" ofType:@"bundle"]] ?: ([NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LWAudioPlayer" ofType:@"bundle"]] ?: [NSBundle mainBundle]))
@@ -164,107 +185,153 @@ When accessing images from the resource bundle:
 #define UIImageWithName(name,obj) ([UIImage imageNamed:name inBundle:LWImageBundle(obj) compatibleWithTraitCollection:nil])
 ```
 
-## API Documentation
+## API Reference
 
 ### LWAudioPlayer
 
-Main audio player class (singleton):
+The main audio player class implemented as a singleton:
 
 ```objective-c
 @interface LWAudioPlayer : UIResponder
 
+// Audio engine instances
 @property (nonatomic, strong) STKAudioPlayer *audioPlayer;
+@property (nonatomic, strong) AVAudioPlayer *avplayer;
+
+// Current playback state
 @property (nonatomic, strong) ListItem *currentItem;
-@property (nonatomic, weak) id<LWAudioPlayerViewDelegate> playerViewDelegate;
 @property (nonatomic) NSArray <ListItem *> *itemList;
-@property (nonatomic, strong) AVAudioPlayer* avplayer;
 
+// Delegate for UI updates
+@property (nonatomic, weak) id<LWAudioPlayerViewDelegate> playerViewDelegate;
+```
+
+**Class Methods:**
+
+```objective-c
+// Get shared singleton instance
 + (LWAudioPlayer *)sharedInstance;
+```
 
-// Playback control
-- (void)playAudioWithItem:(ListItem *)item;
-- (void)stop;
-- (void)playPuaseTrack;
-- (void)previousTrack;
-- (void)nextTrack;
+**Instance Methods:**
 
-// Speed control
-- (void)speedDown;
-- (void)speedUp;
-- (void)av_speedDown;
-- (void)av_speedUp;
+```objective-c
+// Playback Control
+- (void)playAudioWithItem:(ListItem *)item;  // Start playing audio item
+- (void)stop;                                // Stop playback
+- (void)playPuaseTrack;                      // Toggle play/pause
+- (void)previousTrack;                       // Play previous track in playlist
+- (void)nextTrack;                           // Play next track in playlist
 
-// Timer control
-- (void)schedulePlayerTimer;
-- (void)playerTimerInvalidate;
+// Speed Control (StreamingKit)
+- (void)speedDown;                           // Decrease playback speed
+- (void)speedUp;                             // Increase playback speed
 
-// Loop mode
-- (BOOL)isSingleLoop;
+// Speed Control (AVAudioPlayer)
+- (void)av_speedDown;                        // Decrease AVPlayer speed
+- (void)av_speedUp;                          // Increase AVPlayer speed
 
-// Lock screen
+// Timer Management
+- (void)schedulePlayerTimer;                 // Start playback timer
+- (void)playerTimerInvalidate;               // Stop playback timer
+
+// Loop Mode
+- (BOOL)isSingleLoop;                        // Check if single loop is enabled
+
+// Lock Screen Integration
 - (void)updateNowPlayingInfoWithElapsedPlaybackTime:(NSNumber *)elapsedTime
                                         playbackRate:(NSNumber *)rate;
 
-// AVAudioPlayer specific
-- (void)av_togglePlayPause;
-- (void)av_stop;
-- (void)av_refreshNoewPlayingInfo;
-- (BOOL)av_isRuning;
-- (BOOL)av_isPlaying;
+// AVAudioPlayer Specific Methods
+- (void)av_togglePlayPause;                  // Toggle AVPlayer play/pause
+- (void)av_stop;                             // Stop AVPlayer
+- (void)av_refreshNoewPlayingInfo;           // Update AVPlayer now playing info
+- (BOOL)av_isRuning;                         // Check if AVPlayer is running
+- (BOOL)av_isPlaying;                        // Check if AVPlayer is playing
 
-// Cleanup
-- (void)releaseAudioPlayer;
+// Resource Management
+- (void)releaseAudioPlayer;                  // Release player resources
 
 @end
 ```
 
 ### LWAudioPlayerViewDelegate
 
+Protocol for receiving playback events and UI update notifications:
+
 ```objective-c
 @protocol LWAudioPlayerViewDelegate <NSObject>
 
-// Update song title
 - (void)updatePalyerTitleWithText:(NSString *)text;
+// Called when track title changes
 
-// Update progress and status UI
 - (void)updateAudioPlayerStatusAndProgressUI;
+// Called periodically to update progress and playback status
 
 @end
 ```
 
 ### ListItem
 
-Audio track information model:
+Model class representing an audio track:
 
 ```objective-c
 @interface ListItem : NSObject
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *url;
-// Additional properties for track metadata
+
+@property (nonatomic, copy) NSString *title;  // Track title
+@property (nonatomic, copy) NSString *url;    // Audio file URL (local or remote)
+
 @end
 ```
 
 ## Example Project
 
-To run the example project, clone the repo and run `pod install` from the Example directory first:
+To run the example project:
 
 ```bash
+# Clone the repository
 git clone https://github.com/luowei/LWAudioPlayer.git
+
+# Navigate to Example directory
 cd LWAudioPlayer/Example
+
+# Install dependencies
 pod install
+
+# Open workspace
 open LWAudioPlayer.xcworkspace
 ```
 
+The example project demonstrates:
+- Basic audio playback functionality
+- Playlist management
+- UI integration with LWAudioPlayerView
+- Lock screen controls
+- Speed control features
+
 ## Dependencies
 
-- [Masonry](https://github.com/SnapKit/Masonry): Auto Layout DSL
-- StreamingKit: Built-in audio streaming engine
-- MarqueeLabel: Built-in scrolling label for long titles
+LWAudioPlayer relies on the following dependencies:
+
+| Dependency | Purpose | Status |
+|-----------|---------|--------|
+| [Masonry](https://github.com/SnapKit/Masonry) | Auto Layout DSL for constraint management | External |
+| StreamingKit | Audio streaming engine for network playback | Built-in |
+| MarqueeLabel | Scrolling label for displaying long track titles | Built-in |
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit pull requests or create issues for bugs and feature requests.
 
 ## Author
 
-luowei, luowei@wodedata.com
+**luowei**
+Email: luowei@wodedata.com
 
 ## License
 
-LWAudioPlayer is available under the MIT license. See the LICENSE file for more info.
+LWAudioPlayer is available under the MIT license. See the [LICENSE](LICENSE) file for more information.
+
+---
+
+**Made with ❤️ for iOS developers**
