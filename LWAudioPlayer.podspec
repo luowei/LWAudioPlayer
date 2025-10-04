@@ -32,6 +32,7 @@ LWAudioPlayer，一个双核心音频播放器，包含前进、后退、循环�
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'LWAudioPlayer/Classes/**/*'
+  s.exclude_files = 'LWAudioPlayer/Classes/**/*.swift'
   
   s.resource_bundles = {
     'LWAudioPlayer' => ['LWAudioPlayer/Assets/**/*']
